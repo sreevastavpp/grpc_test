@@ -1,25 +1,29 @@
 version: "3.8"
 services:
 
-  marketplace:
-    build:
-      context: .
-      dockerfile: marketplace/Dockerfile
-      environment:
-        - RECOMMENDATIONS_HOST="recommendations"
-      image: marketplace
-      networks:
-        - microservices
-      ports:
-        - "5000:5000"
+    marketplace:
+        build:
+            context: .
+            dockerfile: marketplace/Dockerfile
+        environment:
+            RECOMMENDATIONS_HOST: recommendations
+        image: marketplace
+        networks:
+            - microservices
+        ports:
+            - 5001:5001
+        volumes:
+            - /Users/parambansreevastav/Source/lab/vol:/data
 
-  recommendations:
-    build:
-      context: .
-      dockerfile: recommendations/Dockerfile
-      image: recommendations
-      networks:
-        - microservices
+    recommendations:
+        build:
+            context: .
+            dockerfile: recommendations/Dockerfile
+        image: recommendations
+        networks:
+            - microservices
+        ports:
+            - 50051:50051
 
 networks:
-  microservices:
+    microservices:
